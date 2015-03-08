@@ -1214,18 +1214,6 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "HPQOEM", "167C    ", 0x00000001)
                 Release (\_SB.PCI0.LPCB.EC0.ECMX)
                 Return (GETK (Local0))
             }
-            Method (_AC0, 0, Serialized) {
-                Return (GETK(75))
-            }
-            Name (_AL0, Package () {\_SB.PCI0.LPCB.FAN0})
-            Method (_AC1, 0, Serialized) {
-                Return (GETK(60))
-            }
-            Name (_AL1, Package () {\_SB.PCI0.LPCB.FAN0})
-            Method (_AC2, 0, Serialized) {
-                Return (GETK(45))
-            }
-            Name (_AL2, Package () {\_SB.PCI0.LPCB.FAN0})
             Method (_TZP, 0, Serialized) {
                 Return (300)
             }
@@ -6659,39 +6647,53 @@ DefinitionBlock ("dsdt.aml", "DSDT", 2, "HPQOEM", "167C    ", 0x00000001)
                     Name (_HID, EISAID("PNP0C0B"))  
                     Name (_UID, 0)
                     Name (_FIF, Package () {0, 0, 0, 0})
+
                     Name (_FPS, Package () {
                         0,
-                        Package () {100, 0, 100,  0xFFFFFFFF,  0xFFFFFFFF},
-                        Package () {50, 1, 75,  0xFFFFFFFF,  0xFFFFFFFF},
-                        Package () {255, 2, 50,  0xFFFFFFFF,  0xFFFFFFFF}
+                        Package () {0, 0x0FFFFFFFF, 32,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {4, 0x0FFFFFFFF, 31,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {8, 0x0FFFFFFFF, 30,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {12, 0x0FFFFFFFF, 29,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {16, 0x0FFFFFFFF, 28,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {20, 0x0FFFFFFFF, 27,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {24, 0x0FFFFFFFF, 26,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {28, 0x0FFFFFFFF, 25,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {32, 0x0FFFFFFFF, 24,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {36, 0x0FFFFFFFF, 23,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {40, 0x0FFFFFFFF, 22,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {44, 0x0FFFFFFFF, 21,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {48, 0x0FFFFFFFF, 20,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {52, 0x0FFFFFFFF, 19,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {56, 0x0FFFFFFFF, 18,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {60, 0x0FFFFFFFF, 17,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {64, 0x0FFFFFFFF, 16,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {68, 0x0FFFFFFFF, 15,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {72, 0x0FFFFFFFF, 14,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {76, 0x0FFFFFFFF, 13,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {80, 0x0FFFFFFFF, 12,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {84, 0x0FFFFFFFF, 11,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {88, 0x0FFFFFFFF, 10,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {92, 0x0FFFFFFFF, 9,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {96, 0x0FFFFFFFF, 8,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {104, 0x0FFFFFFFF, 7,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {108, 0x0FFFFFFFF, 6,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {112, 0x0FFFFFFFF, 5,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {116, 0x0FFFFFFFF, 4,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {120, 0x0FFFFFFFF, 3,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {124, 0x0FFFFFFFF, 2,  0xFFFFFFFF,  0xFFFFFFFF},
+                        Package () {128, 0x0FFFFFFFF, 1,  0xFFFFFFFF,  0xFFFFFFFF}
                     })
 
                     Method (_FSL, 1) {
-                        If (LEqual (Arg0, 0xFF)) {
-                            Store (Arg0, FCTL)
-                            Acquire (\_SB.PCI0.LPCB.EC0.ECMX, 0xFFFF)
-                            Store (0xFF, \_SB.PCI0.LPCB.EC0.FTGC)
-                            Release (\_SB.PCI0.LPCB.EC0.ECMX)
-                        }
-                        Else {
-                            Store (Arg0, FCTL)
-                            Divide (Multiply (Subtract (100, Arg0), 128), 100, , Local0)
-                            Acquire (\_SB.PCI0.LPCB.EC0.ECMX, 0xFFFF)
-                            Store (Local0, \_SB.PCI0.LPCB.EC0.FTGC)
-                            Release (\_SB.PCI0.LPCB.EC0.ECMX)
-                        }
+                    	Divide (Arg0, 4, , Local0)
+                    	Multiply (Local0, 4, FCTL)
+                        Acquire (\_SB.PCI0.LPCB.EC0.ECMX, 0xFFFF)
+                        Store (Arg0, \_SB.PCI0.LPCB.EC0.FTGC)
+                        Release (\_SB.PCI0.LPCB.EC0.ECMX)
                     }
 
                     Method (_FST, 0) {
-                        If (LEqual (FCTL, 0xFF)) {
-                            Return (Package () {0, 0xFF,  0xFFFFFFFF})
-                        }
-                        Else {
-                            Divide (FCTL, 50, , Local0)
-                            Multiply (Local0, 50, Local0)
-                            Store (Local0, FCTL)
-                            Return (Package () {0, FCTL, 0xFFFFFFFF})
-                        }
+                        Return (Package () {0, FCTL, 0xFFFFFFFF})
                     }
                 }
                 Device (DMAC)

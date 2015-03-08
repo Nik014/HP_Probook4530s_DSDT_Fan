@@ -26,63 +26,21 @@ use "man thermal-conf.xml" for details
 					<Temperature>45000</Temperature>
 					<type>passive</type>
 					<ControlType>SEQUENTIAL</ControlType>
-					<CoolingDevice>
+						<CoolingDevice>
 						<index>1</index>
 						<type>rapl_controller</type>
 						<influence>100</influence>
 						<SamplingPeriod>15</SamplingPeriod>
-					</CoolingDevice>
-					<CoolingDevice>
-						<index>2</index>
-						<type>Fan</type>
-						<influence>50</influence>
-						<SamplingPeriod>60</SamplingPeriod>
 					</CoolingDevice>
 				</TripPoint>
 				<TripPoint>
 					<SensorType>cpu-temp</SensorType>
 					<Temperature>60000</Temperature>
 					<type>passive</type>
-					<ControlType>PARALLEL</ControlType>
+					<ControlType>SEQUENTIAL</ControlType>
 					<CoolingDevice>
-						<index>3</index>
-						<type>rapl_controller</type>
-						<influence>100</influence>
-						<SamplingPeriod>15</SamplingPeriod>
-					</CoolingDevice>
-					<CoolingDevice>
-						<index>4</index>
+						<index>2</index>
 						<type>Fan</type>
-						<influence>100</influence>
-						<SamplingPeriod>60</SamplingPeriod>
-					</CoolingDevice>
-					<CoolingDevice>
-						<index>5</index>
-						<type>intel_pstate</type>
-						<influence>50</influence>
-						<SamplingPeriod>15</SamplingPeriod>
-					</CoolingDevice>
-				</TripPoint>
-				<TripPoint>
-					<SensorType>cpu-temp</SensorType>
-					<Temperature>75000</Temperature>
-					<type>passive</type>
-					<ControlType>PARALLEL</ControlType>
-					<CoolingDevice>
-						<index>6</index>
-						<type>rapl_controller</type>
-						<influence>100</influence>
-						<SamplingPeriod>15</SamplingPeriod>
-					</CoolingDevice>
-					<CoolingDevice>
-						<index>7</index>
-						<type>Fan</type>
-						<influence>100</influence>
-						<SamplingPeriod>60</SamplingPeriod>
-					</CoolingDevice>
-					<CoolingDevice>
-						<index>8</index>
-						<type>intel_pstate</type>
 						<influence>100</influence>
 						<SamplingPeriod>15</SamplingPeriod>
 					</CoolingDevice>
@@ -91,35 +49,38 @@ use "man thermal-conf.xml" for details
 					<SensorType>cpu-temp</SensorType>
 					<Temperature>90000</Temperature>
 					<type>max</type>
-					<ControlType>PARALLEL</ControlType>
+					<ControlType>SEQUENTIAL</ControlType>
 					<CoolingDevice>
-						<index>9</index>
-						<type>rapl_controller</type>
-						<influence>100</influence>
-						<SamplingPeriod>15</SamplingPeriod>
-					</CoolingDevice>
-					<CoolingDevice>
-						<index>10</index>
-						<type>Fan</type>
-						<influence>100</influence>
-						<SamplingPeriod>60</SamplingPeriod>
-					</CoolingDevice>
-					<CoolingDevice>
-						<index>11</index>
+						<index>3</index>
 						<type>intel_pstate</type>
 						<influence>100</influence>
 						<SamplingPeriod>15</SamplingPeriod>
 					</CoolingDevice>
 					<CoolingDevice>
-						<index>12</index>
+						<index>4</index>
 						<type>Processor</type>
 						<influence>50</influence>
 						<SamplingPeriod>15</SamplingPeriod>
 					</CoolingDevice>
-				</TripPoint>
+				</TripPoint>-
 			</TripPoints>
 		</ThermalZone>
 	</ThermalZones>
+	<CoolingDevices>
+		<CoolingDevice>
+			<Type>Fan</Type>
+			<MinState>0</MinState>
+			<IncDecStep>1</IncDecStep>
+			<ReadBack>0</ReadBack>
+			<MaxState>31</MaxState>
+			<DebouncePeriod>10</DebouncePeriod>
+			<PidControl>
+				<kp>0,00025</kp>
+				<kd>0</kd>
+				<ki>0,00001</ki>
+			</PidControl>
+		</CoolingDevice>
+	</CoolingDevices>
 </Platform>
 
 <!-- Thermal configuration example only -->
